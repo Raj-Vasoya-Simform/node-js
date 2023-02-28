@@ -1,19 +1,31 @@
-const mongoose = require("mongoose");
+const { mongoose, ObjectID } = require("mongoose");
+// const ObjectID = mongoose.ObjectID;
+
 mongoose.set("strictQuery", false);
+
+const id = mongoose.Types.ObjectId();
+
+// console.log(id.id.length);
+// console.log(id.getTimestamp());
+// console.log(id.toHexString().length);
 
 var url = "mongodb://localhost:27017/task-manager";
 mongoose.connect(url, function (err, db) {
   if (err) throw err;
 
-  //   ----insertOne()----
-  //   var user1 = { name: "Raj", age: "22" };
+  // Creating the Data
+
+  //1.) ----insertOne()----
+
+  //   var user1 = { name: "Utsav", age: "21" };
 
   //   db.collection("user").insertOne(user1, (err, res) => {
   //     if (err) throw err;
   //     console.log("1 record inserted");
   //     db.close();
+  //   });
 
-  // ----insertMany----
+  //2.) ----insertMany----
   //   var user1 = [
   //     { name: "Raj", age: 22 },
   //     { name: "harsh", age: 22 },
@@ -25,24 +37,47 @@ mongoose.connect(url, function (err, db) {
   //     console.log("record inserted");
   //     db.close();
 
-  var tasks = [
-    {
-      description: "Clean the house",
-      completed: true,
-    },
-    {
-      description: "Renew inspection",
-      completed: false,
-    },
-    {
-      description: "Pot plants",
-      completed: false,
-    },
-  ];
+  //   var tasks = [
+  //     {
+  //       description: "Clean the house",
+  //       completed: true,
+  //     },
+  //     {
+  //       description: "Renew inspection",
+  //       completed: false,
+  //     },
+  //     {
+  //       description: "Pot plants",
+  //       completed: false,
+  //     },
+  //   ];
 
-  db.collection("task").insertMany(tasks, (err, res) => {
+  //   db.collection("task").insertMany(tasks, (err, res) => {
+  //     if (err) throw err;
+
+  //     console.log(tasks._id);
+  //     db.close();
+  //   });
+
+  // Reading data from databse
+  //1.) ---findOne()---
+  db.collection("user").findOne({ name: "harsh" }, (err, res) => {
     if (err) throw err;
-    console.log("record inserted");
-    db.close();
+    console.log(res);
   });
+
+  //   2.) ---find()---
+  db.collection("user")
+    .find({ age: 22 })
+    .toArray((err, res) => {
+      if (err) throw err;
+      console.log(res);
+    });
+
+  db.collection("user")
+    .find({ age: 22 })
+    .count((err, res) => {
+      if (err) throw err;
+      console.log(res);
+    });
 });
