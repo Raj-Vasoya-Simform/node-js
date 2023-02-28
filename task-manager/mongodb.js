@@ -14,13 +14,33 @@ mongoose.connect(url, function (err, db) {
   //     db.close();
 
   // ----insertMany----
-  var user1 = [
-    { name: "Raj", age: 22 },
-    { name: "harsh", age: 22 },
-    { name: "Vidur", age: 22 },
+  //   var user1 = [
+  //     { name: "Raj", age: 22 },
+  //     { name: "harsh", age: 22 },
+  //     { name: "Vidur", age: 22 },
+  //   ];
+
+  //   db.collection("user").insertMany(user1, (err, res) => {
+  //     if (err) throw err;
+  //     console.log("record inserted");
+  //     db.close();
+
+  var tasks = [
+    {
+      description: "Clean the house",
+      completed: true,
+    },
+    {
+      description: "Renew inspection",
+      completed: false,
+    },
+    {
+      description: "Pot plants",
+      completed: false,
+    },
   ];
 
-  db.collection("user").insertMany(user1, (err, res) => {
+  db.collection("task").insertMany(tasks, (err, res) => {
     if (err) throw err;
     console.log("record inserted");
     db.close();
